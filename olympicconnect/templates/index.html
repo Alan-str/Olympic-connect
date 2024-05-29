@@ -1,0 +1,22 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Bienvenue aux Jeux Olympiques</h1>
+    <a href="{% url 'account_signup' %}"><button>S'inscrire</button></a>
+    <a href="{% url 'account_login' %}"><button>Se connecter</button></a>
+
+    <div id="dynamic-content"></div>
+
+    <script>
+        $(document).ready(function() {
+            $("#dynamic-content").html("<p>Contenu dynamique chargé par jQuery!</p>");
+        });
+    </script>
+</body>
+</html>

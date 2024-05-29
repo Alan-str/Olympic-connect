@@ -1,0 +1,9 @@
+<!-- templates/account/login.html -->
+{% load i18n %}
+{% load account %}
+
+<form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans "Log In" %}</button>
+</form>
