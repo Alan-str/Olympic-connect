@@ -25,9 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.main.urls')),  
     path('accounts/', include('apps.accounts.urls')),
+    # path('accounts/', include('allauth.urls')),  # Inclure les URLs d'Allauth
     path('events/', include('apps.events.urls')),
+    path('cart/', include('apps.cart.urls')),
+    path('tickets/', include('apps.tickets.urls')), 
     path('logout/', custom_logout, name='account_logout'),  
-    # path('', TemplateView.as_view(template_name="index.html"), name='home'),
 ]
 
 if settings.DEBUG:

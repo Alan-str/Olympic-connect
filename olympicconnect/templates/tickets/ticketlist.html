@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mes Billets - Olympic Connect{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/tickets.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="ticket-list">
+    <h2>Mes Billets</h2>
+    {% if tickets %}
+        <div class="cards-container">
+            {% for ticket in tickets %}
+                <div class="ticket-card">
+                    <img src="{{ ticket.event.thumbnail.url }}" alt="{{ ticket.event.name }}">
+                    <div class="ticket-info">
+                        <h3>{{ ticket.event.name }}</h3>
+                        <p><strong>Date:</strong> {{ ticket.event.date }}</p>
+                        <p><strong>Offre:</strong> {{ ticket.offer_name }}</p>
+                        <img src="{{ ticket.qr_code.url }}" alt="QR Code pour {{ ticket.event.name }}" class="qr-code">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Vous n'avez aucun billet.</p>
+    {% endif %}
+</div>
+{% endblock %}

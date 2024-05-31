@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ event.name }} - Olympic Connect{% endblock %}
 
@@ -14,15 +15,15 @@
         <div class="event-prices">
             <div class="price-option">
                 <p><strong>Prix Solo:</strong> {{ event.price_solo }}€</p>
-                <button class="btn add-to-cart">Ajouter au panier</button>
+                <button class="btn add-to-cart" data-event-id="{{ event.id }}" data-price="{{ event.price_solo }}" data-offer-name="Solo">Ajouter au panier</button>
             </div>
             <div class="price-option">
                 <p><strong>Prix Duo:</strong> {{ event.price_duo }}€</p>
-                <button class="btn add-to-cart">Ajouter au panier</button>
+                <button class="btn add-to-cart" data-event-id="{{ event.id }}" data-price="{{ event.price_duo }}" data-offer-name="Duo">Ajouter au panier</button>
             </div>
             <div class="price-option">
                 <p><strong>Prix Famille:</strong> {{ event.price_family }}€</p>
-                <button class="btn add-to-cart">Ajouter au panier</button>
+                <button class="btn add-to-cart" data-event-id="{{ event.id }}" data-price="{{ event.price_family }}" data-offer-name="Famille">Ajouter au panier</button>
             </div>
         </div>
     </div>
@@ -54,7 +55,7 @@
         margin: 1rem auto;
     }
 
-    #description{
+    #description {
         font-size: larger;
     }
 
@@ -93,4 +94,9 @@
         background-color: #0056b3;
     }
 </style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

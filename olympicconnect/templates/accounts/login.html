@@ -1,9 +1,21 @@
-<!-- templates/account/login.html -->
+{% extends "base.html" %}
 {% load i18n %}
 {% load account %}
 
-<form method="post" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% trans "Log In" %}</button>
-</form>
+{% block title %}Connexion - Olympic Connect{% endblock %}
+
+{% block extra_head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <h2>{% trans "Connexion" %}</h2>
+    <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Se connecter" %}</button>
+    </form>
+    <p>{% trans "Vous n'avez pas de compte ?" %} <a href="{% url 'account_signup' %}">{% trans "S'inscrire" %}</a></p>
+</div>
+{% endblock %}

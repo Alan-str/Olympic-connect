@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mon Panier - Olympic Connect{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-details">
+    <h2>Mon Panier</h2>
+    {% if cart.items.exists %}
+        <ul>
+            {% for item in cart.items.all %}
+                <li>
+                    <img src="{{ item.event.thumbnail.url }}" alt="{{ item.event.name }}">
+                    <p>{{ item.event.name }} - {{ item.offer_name }}</p>
+                    <p>{{ item.price }}€</p>
+                    <button class="remove-from-cart" data-item-id="{{ item.id }}">Retirer</button>
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="cart-total">Total: <span id="cart-total">{{ cart.get_total_price }}</span>€</p>
+        <button class="checkout-btn" id="checkout-btn">Procéder au paiement</button>
+    {% else %}
+        <p>Votre panier est vide.</p>
+    {% endif %}
+</div>
+
+<!-- Modale de paiement -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Paiement</h2>
+        <form id="payment-form" action="{% url 'process_payment' %}" method="post">
+            {% csrf_token %}
+            <label for="card-name">Nom sur la carte</label>
+            <input type="text" id="card-name" name="card-name" disabled>
+            <label for="card-number">Numéro de carte</label>
+            <input type="text" id="card-number" name="card-number" disabled>
+            <label for="expiry-date">Date d'expiration</label>
+            <input type="text" id="expiry-date" name="expiry-date" disabled>
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" disabled>
+            <button type="submit" id="submit-payment">Valider le paiement</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/cart.js' %}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("paymentModal");
+    const btn = document.getElementById("checkout-btn");
+    const span = document.getElementsByClassName("close")[0];
+    const form = document.getElementById("payment-form");
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+});
+</script>
+{% endblock %}

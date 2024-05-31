@@ -1,0 +1,51 @@
+.account-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 330px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.account-container h2 {
+    margin-bottom: 20px;
+}
+
+.account-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-container form p {
+    text-align: left;
+}
+
+.account-container form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.account-container form button:hover {
+    background-color: #0056b3;
+}
+
+.account-container p {
+    margin-top: 10px;
+}
+
+.account-container a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.account-container a:hover {
+    color: #0056b3;
+}
