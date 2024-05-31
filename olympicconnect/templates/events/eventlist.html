@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Accueil - Olympic Connect{% endblock %}
+
+{% block content %}
+<section class="events-section">
+    <div id='eventlist-title' class="container">
+        <h2>Événements à venir</h2>
+        <div id="events-container" class="event-list">
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/events.js' %}"></script>
+{% endblock %}

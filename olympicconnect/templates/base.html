@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>{% block title %}Accueil - Olympic Connect{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/eventlist.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block extra_head %}{% endblock %}
+    <style>.welcome-section {
+        background: url("{% static 'images/fresque.jpg' %}") no-repeat center center/cover;
+        color: black;
+        font-size: 35px;
+        font-weight: 900;
+        text-align: center;
+        padding-top: 200px;
+        padding-bottom: 200px;
+    }
+    .btn-see-all-events {
+            background-color: #007bff;
+            color: #fff;
+            padding: 3px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn-see-all-events:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                <img src="{% static 'images/logo-thumbnail.png' %}" alt="Olympic Connect">
+            </a>
+            </div>
+            <nav>
+                <ul>
+                    <a href="{% url 'all_events' %}" class="btn-see-all-events">Voir toutes les épreuves</a>
+
+                    {% if user.is_authenticated %}
+                        <li>
+                            <form id="logout-form" action="{% url 'account_logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font: inherit; margin: 0; padding: 0;">
+                                    <i class="fa fa-user"></i> Déconnexion
+                                </button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'account_login' %}">Se connecter</a></li>
+                        <li><a href="{% url 'account_signup' %}">S'inscrire</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2024 Olympic Connect. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>

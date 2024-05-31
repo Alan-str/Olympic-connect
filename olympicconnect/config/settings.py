@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.accounts',
     'apps.tickets',
+    'apps.events',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -82,8 +83,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'olympic-connect',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres$',
+        'HOST': 'localhost',  # ou l'adresse de votre serveur PostgreSQL
+        'PORT': '5432',  # le port par défaut pour PostgreSQL
     }
 }
 
@@ -158,3 +163,16 @@ ACCOUNT_FORMS = {
 }
 
 SITE_ID = 1
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

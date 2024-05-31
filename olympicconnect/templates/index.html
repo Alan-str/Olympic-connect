@@ -1,22 +1,27 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <h1>Bienvenue aux Jeux Olympiques</h1>
-    <a href="{% url 'account_signup' %}"><button>S'inscrire</button></a>
-    <a href="{% url 'account_login' %}"><button>Se connecter</button></a>
+{% extends "base.html" %}
+{% load static %}
 
-    <div id="dynamic-content"></div>
+{% block title %}Accueil - Olympic Connect{% endblock %}
 
-    <script>
-        $(document).ready(function() {
-            $("#dynamic-content").html("<p>Contenu dynamique chargé par jQuery!</p>");
-        });
-    </script>
-</body>
-</html>
+{% block content %}
+    <!-- Section de bienvenue -->
+    <section class="welcome-section">
+        <div class="container">
+            <div class="welcome-message">
+                <h1>Bienvenue sur Olympic Connect</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="events-section">
+        <div id="eventlist-title">
+            <h2>Événements à venir</h2>
+            <div id="events-container" class="event-list">
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/events.js' %}"></script>
+{% endblock %}

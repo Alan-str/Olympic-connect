@@ -1,3 +1,5 @@
+# apps/accounts/models.py
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -5,9 +7,16 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+    security_key = models.CharField(max_length=255, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    def save(self, *args, **kwargs):
+        # Générer la clé de sécurité basée sur le nom et le prénom
+        self.security_key = f"{self.first_name}_{self.last_name}".lower()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email
