@@ -1,3 +1,9 @@
+olympicconnect/staticfiles/
+olympicconnect/fly.toml
+olympicconnect/.env
+olympicconnect/procfile
+.dockerignore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

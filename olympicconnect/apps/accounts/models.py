@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
-    security_key = models.CharField(max_length=7, unique=True, blank=True, null=True)
+    security_key = models.CharField(max_length=150, unique=True, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
