@@ -32,7 +32,7 @@ $(document).ready(function() {
         const eventId = $(this).data('event-id');
         const price = $(this).data('price');
         const offerName = $(this).data('offer-name');
-        const csrfElement  = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const csrfElement  = document.querySelector('[name=csrfmiddlewaretoken]');
 
         if (!csrfElement) {
             // Si le CSRF token n'est pas trouvé, cela signifie que l'utilisateur n'est pas connecté.
