@@ -87,8 +87,11 @@
                                     {% csrf_token %}
                                     <button type="submit">Se déconnecter</button>
                                 </form>
-                            </div>
+                            </div> 
                         </li>
+                        {% if user.is_superuser %}
+                                <li><a href="/admin/">Admin</a></li>
+                        {% endif %}
                     {% else %}
                         <li><a href="{% url 'account_login' %}">Se connecter</a></li>
                         <li><a href="{% url 'account_signup' %}">S'inscrire</a></li>

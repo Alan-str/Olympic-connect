@@ -32,8 +32,17 @@ $(document).ready(function() {
         const eventId = $(this).data('event-id');
         const price = $(this).data('price');
         const offerName = $(this).data('offer-name');
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const csrfElement  = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
+        if (!csrfElement) {
+            // Si le CSRF token n'est pas trouvé, cela signifie que l'utilisateur n'est pas connecté.
+            alert('Veuillez vous connecter pour ajouter des articles au panier.');
+            window.location.href = '/accounts/login/';
+            return;
+        }
+    
+        const csrftoken = csrfElement.value;
+    
         $.ajax({
             url: `/cart/add/${eventId}/`,
             method: 'POST',
@@ -49,6 +58,8 @@ $(document).ready(function() {
                 if (response.success) {
                     alert('Article ajouté au panier.');
                     $('#cart-total').text(response.cart_total);
+                } else if (response.error === 'not_authenticated') {
+                    window.location.href = '/accounts/login/';
                 } else {
                     alert('Erreur lors de l\'ajout de l\'article au panier.');
                 }
