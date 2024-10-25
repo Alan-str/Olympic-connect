@@ -78,6 +78,7 @@
                 <ul>
                     {% if user.is_authenticated %}
                         <li class="profile-menu">
+                            <a href="{% url 'cart_detail' %}"><i class="fa-solid fa-cart-shopping"></i></a>
                             <a href="#" id="profile-icon"><i class="fa fa-user"></i></a>
                             <div id="profile-dropdown" class="dropdown-content">
                                 <p>Bonjour, {{ user.first_name }}</p>
