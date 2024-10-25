@@ -20,7 +20,7 @@ class CustomSignupView(SignupView):
     form_class = CustomSignupForm
 
     def get_success_url(self):
-        return reverse('home')
+        return redirect(reverse('account_login'))
 
     def form_valid(self, form):
         user = form.save(self.request)
