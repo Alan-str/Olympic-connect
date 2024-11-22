@@ -62,21 +62,21 @@ class EventViewsTest(TestCase):
     def test_event_list_api(self):
         response = self.client.get(reverse("event_list_api"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 2)  # Par défaut, seulement 3 max dans la vue
+        self.assertEqual(len(response.json()), 2)  
         self.assertEqual(response.json()[0]["name"], "Event 1")
 
     def test_all_events_api(self):
         response = self.client.get(reverse("all_events_api"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 2)  # Tous les événements
+        self.assertEqual(len(response.json()), 2)  
         self.assertEqual(response.json()[1]["name"], "Event 2")
 
     def test_all_events_view(self):
         response = self.client.get(reverse("all_events"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "events/allevents.html")
-        self.assertContains(response, "Event 1")
-        self.assertContains(response, "Event 2")
+        self.assertContains(response, "Description for Event 1")
+        self.assertContains(response, "Description for Event 2")
 
     def test_event_info_view(self):
         response = self.client.get(reverse("eventinfo", args=[self.event1.id]))

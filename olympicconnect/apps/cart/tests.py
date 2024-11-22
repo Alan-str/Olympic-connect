@@ -10,7 +10,7 @@ User = get_user_model()
 # --- TESTS POUR LES MODÈLES ---
 class CartModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(email="test@exemple.com", password="password123")
+        self.user = User.objects.create_user(username="testuser", email="test@exemple.com", password="password123")
         self.cart = Cart.objects.create(user=self.user)
 
     def test_cart_total_price(self):
@@ -23,7 +23,7 @@ class CartModelTest(TestCase):
 
 class CartItemModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(email="test@exemple.com", password="password123")
+        self.user = User.objects.create_user(username="testuser", email="test@exemple.com", password="password123")
         self.cart = Cart.objects.create(user=self.user)
         self.event = Event.objects.create(name="Test Event", price=10.00)
 
@@ -35,7 +35,7 @@ class CartItemModelTest(TestCase):
 class CartViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(email="test@exemple.com", password="password123")
+        self.user = User.objects.create_user(username="testuser", email="test@exemple.com", password="password123")
         self.event = Event.objects.create(name="Test Event", price=15.00)
 
     def test_cart_detail_view(self):

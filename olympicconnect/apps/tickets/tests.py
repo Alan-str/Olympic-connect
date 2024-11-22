@@ -12,7 +12,7 @@ User = get_user_model()
 # --- TESTS POUR LES MODÈLES ---
 class TicketModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(email="test@exemple.com", password="password123")
+        self.user = User.objects.create_user(username="testuser", email="test@exemple.com", password="password123")
         self.event = Event.objects.create(
             name="Test Event",
             description="A test event",

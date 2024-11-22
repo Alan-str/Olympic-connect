@@ -136,3 +136,9 @@
 .modal-content form button:hover {
     background-color: #0056b3;
 }
+
+input::placeholder {
+    color: #888;
+    font-style: italic;
+    opacity: 0.7;
+}
