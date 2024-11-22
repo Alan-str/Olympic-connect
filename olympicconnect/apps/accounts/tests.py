@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from accounts.forms import CustomSignupForm, CustomLoginForm
+from apps.accounts.forms import CustomSignupForm, CustomLoginForm
 
 User = get_user_model()
 

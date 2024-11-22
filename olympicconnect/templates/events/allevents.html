@@ -4,7 +4,7 @@
 {% block title %}Tous les événements - Olympic Connect{% endblock %}
 
 {% block content %}
-    <section class="events-section">
+    <section class="events-section"  data-description="{{ event.description }}">
         <div  id='allevents-title' class="container">
             <h2>Liste des événements</h2>
             <div id="events-container" class="event-list">

@@ -44,7 +44,7 @@ class TicketModelTest(TestCase):
 class TicketViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(email="test@exemple.com", password="password123")
+        self.user = User.objects.create_user(username="testuser", email="test@exemple.com", password="password123")
         self.event = Event.objects.create(
             name="Test Event",
             description="A test event",
@@ -63,7 +63,7 @@ class TicketViewsTest(TestCase):
         )
 
     def test_user_tickets_view(self):
-        self.client.login(email="test@exemple.com", password="password123")
+        self.client.login(username="testuser", email="test@exemple.com", password="password123")
         response = self.client.get(reverse("user_tickets"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tickets/ticketlist.html")

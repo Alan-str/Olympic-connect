@@ -75,8 +75,8 @@ class EventViewsTest(TestCase):
         response = self.client.get(reverse("all_events"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "events/allevents.html")
-        self.assertContains(response, "Description for Event 1")
-        self.assertContains(response, "Description for Event 2")
+        self.assertContains(response, 'data-description="Description for Event 1"')
+        self.assertContains(response, 'data-description="Description for Event 2"')
 
     def test_event_info_view(self):
         response = self.client.get(reverse("eventinfo", args=[self.event1.id]))
