@@ -13,7 +13,7 @@ def generate_unique_key(length=7):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
 
-@login_required
+# @login_required
 def cart_detail(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     return render(request, 'cart/cartdetails.html', {'cart': cart})

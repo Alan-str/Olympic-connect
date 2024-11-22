@@ -70,14 +70,7 @@ class EventViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 2)  
         self.assertEqual(response.json()[1]["name"], "Event 2")
-
-    # def test_all_events_view(self):
-    #     response = self.client.get(reverse("all_events"))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, "events/allevents.html")
-    #     self.assertContains(response, 'data-description="Description for Event 1"')
-    #     self.assertContains(response, 'data-description="Description for Event 2"')
-
+        
     def test_event_info_view(self):
         response = self.client.get(reverse("eventinfo", args=[self.event1.id]))
         self.assertEqual(response.status_code, 200)

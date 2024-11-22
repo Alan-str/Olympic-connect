@@ -36,18 +36,56 @@
         <form id="payment-form" action="{% url 'process_payment' %}" method="post">
             {% csrf_token %}
             <label for="card-name">Nom sur la carte</label>
-            <input type="text" id="card-name" name="card-name" placeholder="NOM Prénom">
-            
-            <label for="card-number">Numéro de carte</label>
-            <input type="text" id="card-number" name="card-number" placeholder="1234123412341234">
-            
-            <label for="expiry-date">Date d'expiration</label>
-            <input type="text" id="expiry-date" name="expiry-date" placeholder="12/24">
-            
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" name="cvv" placeholder="123">
-            
-            <button type="submit" id="submit-payment">Valider le paiement</button>
+<input 
+    type="text" 
+    id="card-name" 
+    name="card-name" 
+    required 
+    data-parsley-pattern="^[a-zA-Z\s]+$" 
+    minlength="3" 
+    maxlength="50" 
+    placeholder="NOM Prénom" 
+    data-parsley-minlength="3" 
+    data-parsley-maxlength="50" 
+    data-parsley-minlength-message="Le nom doit contenir au moins 3 caractères." 
+    data-parsley-maxlength-message="Le nom ne peut pas dépasser 50 caractères.">
+
+<label for="card-number">Numéro de carte</label>
+<input 
+    type="text" 
+    id="card-number" 
+    name="card-number" 
+    required 
+    data-parsley-pattern="^\d{16}$" 
+    minlength="16" 
+    maxlength="16" 
+    placeholder="1234123412341234" 
+    data-parsley-error-message="Le numéro de carte doit contenir exactement 16 chiffres.">
+
+<label for="expiry-date">Date d'expiration</label>
+<input 
+    type="text" 
+    id="expiry-date" 
+    name="expiry-date" 
+    required 
+    data-parsley-pattern="^(0[1-9]|1[0-2])/\d{2}$" 
+    placeholder="MM/AA" 
+    data-parsley-error-message="La date d'expiration doit être au format MM/AA.">
+
+<label for="cvv">CVV</label>
+<input 
+    type="text" 
+    id="cvv" 
+    name="cvv" 
+    required 
+    data-parsley-pattern="^\d{3}$" 
+    minlength="3" 
+    maxlength="3" 
+    placeholder="123" 
+    data-parsley-error-message="Le CVV doit contenir exactement 3 chiffres.">
+
+<button type="submit">Valider le paiement</button>
+
         </form>
     </div>
 </div>
@@ -56,64 +94,34 @@
 
 {% block extra_js %}
 <script src="{% static 'js/cart.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/parsleyjs/dist/parsley.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("paymentModal");
     const btn = document.getElementById("checkout-btn");
     const span = document.getElementsByClassName("close")[0];
     const form = document.getElementById("payment-form");
 
-    btn.onclick = function() {
+    // Ouvrir la modale
+    btn.onclick = function () {
         modal.style.display = "block";
-    }
+    };
 
-    span.onclick = function() {
+    // Fermer la modale avec la croix
+    span.onclick = function () {
         modal.style.display = "none";
-    }
+    };
 
-    window.onclick = function(event) {
+    // Fermer la modale si on clique en dehors
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
+
+    // Validation et simulation du paiement
+    
 });
 
-document.getElementById('payment-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const cardName = document.getElementById('card-name').value.trim();
-        const cardNumber = document.getElementById('card-number').value.trim();
-        const expiryDate = document.getElementById('expiry-date').value.trim();
-        const cvv = document.getElementById('cvv').value.trim();
-
-        const errors = [];
-
-        // Vérifier le nom
-        if (!cardName || !/^[a-zA-Z\s]+$/.test(cardName)) {
-            errors.push("Le nom sur la carte doit être une chaîne de caractères valide.");
-        }
-
-        // Vérifier le numéro de carte (16 chiffres)
-        if (!/^\d{16}$/.test(cardNumber)) {
-            errors.push("Le numéro de carte doit contenir exactement 16 chiffres.");
-        }
-
-        // Vérifier la date d'expiration (MM/AA)
-        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
-            errors.push("La date d'expiration doit être au format MM/AA.");
-        }
-
-        // Vérifier le CVV (3 chiffres)
-        if (!/^\d{3}$/.test(cvv)) {
-            errors.push("Le CVV doit contenir exactement 3 chiffres.");
-        }
-
-        if (errors.length > 0) {
-            alert(errors.join("\n")); 
-            return;
-        }
-
-        alert("Paiement simulé avec succès !");
-    });
 </script>
 {% endblock %}

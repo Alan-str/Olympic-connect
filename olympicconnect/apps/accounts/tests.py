@@ -86,14 +86,14 @@ class CustomSignupViewTest(TestCase):
 
     def test_signup_form_submission(self):
         response = self.client.post(reverse("account_signup"), data={
-            "username": "newuser",  # Ajout du champ username
+            "username": "newuser",  
             "email": "newuser@exemple.com",
             "password1": "securepassword123",
             "password2": "securepassword123",
             "first_name": "New",
             "last_name": "User"
         })
-        self.assertEqual(response.status_code, 302)  # Redirection après succès
+        self.assertEqual(response.status_code, 302) 
         self.assertTrue(User.objects.filter(email="newuser@exemple.com").exists())
 
 class CustomLogoutViewTest(TestCase):
@@ -105,5 +105,5 @@ class CustomLogoutViewTest(TestCase):
         )
         self.client.login(email="logoutuser@exemple.com", password="password123")
         response = self.client.get(reverse("account_logout"))
-        self.assertEqual(response.status_code, 302)  # Redirection après déconnexion
+        self.assertEqual(response.status_code, 302)  
         self.assertRedirects(response, reverse("account_login"))
