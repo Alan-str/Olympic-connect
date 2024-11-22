@@ -9,18 +9,21 @@ User = get_user_model()
 class CustomUserModelTest(TestCase):
     def test_user_creation(self):
         user = User.objects.create_user(
+            username="john.doe",
             email="test@exemple.com",
             password="securepassword123",
             first_name="John",
             last_name="Doe"
         )
         self.assertEqual(user.email, "test@exemple.com")
+        self.assertEqual(user.username, "john.doe")
         self.assertTrue(user.check_password("securepassword123"))
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Doe")
 
     def test_security_key_generation(self):
         user = User.objects.create_user(
+            username="jane.doe",
             email="keytest@exemple.com",
             password="securepassword123",
             first_name="Jane",
@@ -31,6 +34,7 @@ class CustomUserModelTest(TestCase):
 
     def test_custom_user_str_representation(self):
         user = User.objects.create_user(
+            username="struser",
             email="struser@exemple.com",
             password="password123"
         )
@@ -82,6 +86,7 @@ class CustomSignupViewTest(TestCase):
 
     def test_signup_form_submission(self):
         response = self.client.post(reverse("account_signup"), data={
+            "username": "newuser",  # Ajout du champ username
             "email": "newuser@exemple.com",
             "password1": "securepassword123",
             "password2": "securepassword123",
@@ -93,7 +98,11 @@ class CustomSignupViewTest(TestCase):
 
 class CustomLogoutViewTest(TestCase):
     def test_logout_view(self):
-        user = User.objects.create_user(email="logoutuser@exemple.com", password="password123")
+        user = User.objects.create_user(
+            username="logoutuser",
+            email="logoutuser@exemple.com",
+            password="password123"
+        )
         self.client.login(email="logoutuser@exemple.com", password="password123")
         response = self.client.get(reverse("account_logout"))
         self.assertEqual(response.status_code, 302)  # Redirection après déconnexion
